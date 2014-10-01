@@ -15,13 +15,13 @@
  */
 package org.springframework.data.elasticsearch.repository.support;
 
-import java.io.Serializable;
-
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.repository.Repository;
 import org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 import org.springframework.util.Assert;
+
+import java.io.Serializable;
 
 /**
  * Spring {@link org.springframework.beans.factory.FactoryBean} implementation to ease container based configuration for
@@ -43,6 +43,8 @@ public class ElasticsearchRepositoryFactoryBean<T extends Repository<S, ID>, S, 
 	public void setElasticsearchOperations(ElasticsearchOperations operations) {
 		Assert.notNull(operations);
 		this.operations = operations;
+
+		setMappingContext(operations.getElasticsearchConverter().getMappingContext());
 	}
 
 	/*
